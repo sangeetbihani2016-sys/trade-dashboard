@@ -32,43 +32,119 @@ st.markdown("""
 
 # --- ASSET & SOURCING DATA ---
 ASSETS = {
-    "Industrial Metals": { "Copper": "HG=F", "Aluminum": "ALI=F", "Zinc": "ZNC=F", "Nickel (Proxy)": "VALE", "Lithium (ETF)": "LIT", "Steel (ETF)": "SLX" },
+    "Industrial Metals": { "Copper": "HG=F", "Aluminum": "ALI=F", "Zinc": "ZNC=F", "Nickel": "VALE", "Lithium": "LIT", "Steel": "SLX" },
     "Precious Metals": { "Gold": "GC=F", "Silver": "SI=F", "Platinum": "PL=F", "Palladium": "PA=F" },
     "Agriculture": { "Wheat": "ZW=F", "Corn": "ZC=F", "Soybean": "ZS=F", "Sugar": "SB=F", "Coffee": "KC=F", "Cocoa": "CC=F", "Cotton": "CT=F" },
     "Forex": { "USD/EUR": "EUR=X", "USD/JPY": "JPY=X", "USD/INR": "INR=X", "USD/CNY": "CNY=X" }
 }
 
-# Static "Knowledge Base" for Sourcing (Simulated Intelligence)
+# FULL Sourcing Intelligence Database
 SOURCING_DB = {
+    # --- METALS ---
     "Copper": [
-        {"Country": "Chile", "Tag": "Volume Leader", "Note": "World's largest reserves, reliable sea freight."},
-        {"Country": "Peru", "Tag": "Low Cost", "Note": "Growing output, competitive labor costs."},
-        {"Country": "DRC", "Tag": "High Grade", "Note": "High-grade ore, but higher political risk."},
-        {"Country": "China", "Tag": "Refining", "Note": "Top importer & refiner, key for processed wire."},
+        {"Country": "Chile", "Tag": "Volume Leader", "Note": "World's largest reserves."},
+        {"Country": "Peru", "Tag": "Low Cost", "Note": "Growing output, competitive labor."},
+        {"Country": "China", "Tag": "Refining", "Note": "Top importer & refiner."},
         {"Country": "USA", "Tag": "Domestic", "Note": "Stable supply, premium pricing."}
     ],
+    "Aluminum": [
+        {"Country": "China", "Tag": "Dominant", "Note": "Produces ~58% of global supply."},
+        {"Country": "India", "Tag": "Emerging", "Note": "High-quality primary aluminum exports."},
+        {"Country": "Russia", "Tag": "Volume", "Note": "RUSAL is a major non-China producer."},
+        {"Country": "Canada", "Tag": "Green", "Note": "Hydro-powered smelting (Quebec)."}
+    ],
+    "Zinc": [
+        {"Country": "China", "Tag": "Top Producer", "Note": "35% of global mine production."},
+        {"Country": "Australia", "Tag": "Reserves", "Note": "Largest global reserves."},
+        {"Country": "Peru", "Tag": "Latin Hub", "Note": "Major open-pit mines (Antamina)."},
+        {"Country": "India", "Tag": "Smelting", "Note": "Rampura Agucha is a key mine."}
+    ],
+    "Nickel": [
+        {"Country": "Indonesia", "Tag": "King", "Note": "Controls market via export bans/smelting."},
+        {"Country": "Philippines", "Tag": "Ore", "Note": "Major supplier to Chinese smelters."},
+        {"Country": "Russia", "Tag": "High Grade", "Note": "Norilsk Nickel produces Class 1 nickel."},
+        {"Country": "Canada", "Tag": "North Am", "Note": "Sudbury basin production."}
+    ],
+    "Steel": [
+        {"Country": "China", "Tag": "Massive", "Note": "Exports >85M tons annually."},
+        {"Country": "India", "Tag": "Growth", "Note": "Low-cost, expanding capacity."},
+        {"Country": "Japan", "Tag": "High Tech", "Note": "Specialized automotive/industrial steel."},
+        {"Country": "Turkey", "Tag": "Rebar", "Note": "Key supplier to EU/MENA construction."}
+    ],
+    "Lithium": [
+        {"Country": "Australia", "Tag": "Hard Rock", "Note": "Spodumene ore, shipped to China."},
+        {"Country": "Chile", "Tag": "Brine", "Note": "Lowest cost production (Atacama)."},
+        {"Country": "China", "Tag": "Processing", "Note": "Controls 60%+ of refining capacity."},
+        {"Country": "Argentina", "Tag": "New Projects", "Note": "Fastest growing brine projects."}
+    ],
     "Gold": [
-        {"Country": "China", "Tag": "Top Producer", "Note": "Largest global output, mostly consumed domestically."},
-        {"Country": "Australia", "Tag": "Reliable", "Note": "Massive open-pit mines, easy export regulations."},
-        {"Country": "Russia", "Tag": "Sanction Risk", "Note": "Huge reserves, but payment/logistics complex."},
-        {"Country": "Canada", "Tag": "ESG Safe", "Note": "High ethical standards, conflict-free sourcing."},
-        {"Country": "USA", "Tag": "Nevada Hub", "Note": "Deep liquidity, secure logistics."}
+        {"Country": "China", "Tag": "Top Producer", "Note": "Largest output, mostly domestic use."},
+        {"Country": "Australia", "Tag": "Reliable", "Note": "Massive open-pit mines."},
+        {"Country": "Russia", "Tag": "Sanctioned", "Note": "Huge reserves, complex logistics."},
+        {"Country": "Canada", "Tag": "ESG Safe", "Note": "Conflict-free sourcing."}
     ],
-    "Wheat": [
-        {"Country": "Russia", "Tag": "Cheapest", "Note": "Dominates export market with low-cost grain."},
-        {"Country": "EU (France)", "Tag": "Quality", "Note": "High protein content, reliable shipping lanes."},
-        {"Country": "Australia", "Tag": "Asian Access", "Note": "Key supplier for SE Asia markets."},
-        {"Country": "Canada", "Tag": "Premium", "Note": "Best for high-quality baking flour."},
-        {"Country": "USA", "Tag": "Backup", "Note": "Strong logistics, acts as global buffer."}
+    "Silver": [
+        {"Country": "Mexico", "Tag": "#1 Producer", "Note": "Fresnillo is the world's primary hub."},
+        {"Country": "Peru", "Tag": "Volume", "Note": "Major copper/silver byproduct mines."},
+        {"Country": "China", "Tag": "Refining", "Note": "Major industrial consumer & refiner."},
+        {"Country": "Poland", "Tag": "Europe", "Note": "KGHM is a key EU supplier."}
     ],
-    "Lithium (ETF)": [
-        {"Country": "Australia", "Tag": "Hard Rock", "Note": "Spodumene ore, shipped to China for processing."},
-        {"Country": "Chile", "Tag": "Brine/Low Cost", "Note": "Lowest cost production (Salar de Atacama)."},
-        {"Country": "China", "Tag": "Refining King", "Note": "Controls 60%+ of global battery-grade processing."},
-        {"Country": "Argentina", "Tag": "Emerging", "Note": "Fastest growing brine projects."},
-        {"Country": "Zimbabwe", "Tag": "Frontier", "Note": "New massive hard rock discoveries."}
+    "Platinum": [
+        {"Country": "South Africa", "Tag": "Dominant", "Note": "Produces ~70% of world supply."},
+        {"Country": "Russia", "Tag": "#2 Producer", "Note": "Norilsk Nickel byproduct."},
+        {"Country": "Zimbabwe", "Tag": "Reserves", "Note": "Great Dyke geological complex."},
+        {"Country": "USA", "Tag": "recycling", "Note": "Stillwater mine & catalytic recycling."}
+    ],
+    "Palladium": [
+        {"Country": "Russia", "Tag": "#1 Producer", "Note": "Controls ~40% of supply (Norilsk)."},
+        {"Country": "South Africa", "Tag": "Major", "Note": "Deep level mines, labor volatility risk."},
+        {"Country": "Canada", "Tag": "Stable", "Note": "Byproduct of nickel mining."},
+        {"Country": "USA", "Tag": "Domestic", "Note": "Stillwater mine in Montana."}
+    ],
+    # --- AGRICULTURE ---
+    "Corn": [
+        {"Country": "USA", "Tag": "Top Exporter", "Note": "Global price setter (Chicago Board)."},
+        {"Country": "Brazil", "Tag": "Safrinha", "Note": "Massive second-crop harvest."},
+        {"Country": "Argentina", "Tag": "Value", "Note": "Competitive, but export tax risks."},
+        {"Country": "Ukraine", "Tag": "Black Sea", "Note": "Logistics key for EU/China supply."}
+    ],
+    "Soybean": [
+        {"Country": "Brazil", "Tag": "#1 Global", "Note": "Dominates export market (>50% share)."},
+        {"Country": "USA", "Tag": "Reliable", "Note": "Key supplier during Brazil's off-season."},
+        {"Country": "Argentina", "Tag": "Meal/Oil", "Note": "Top exporter of processed soy meal."},
+        {"Country": "Paraguay", "Tag": "Regional", "Note": "Key river-based logistics."}
+    ],
+    "Sugar": [
+        {"Country": "Brazil", "Tag": "Ethanol Flex", "Note": "Can switch cane to Sugar or Ethanol."},
+        {"Country": "India", "Tag": "Swing", "Note": "Exports depend on domestic monsoon."},
+        {"Country": "Thailand", "Tag": "Asia Hub", "Note": "Key supplier to Indonesia/China."},
+        {"Country": "France", "Tag": "Beet Sugar", "Note": "Top EU white sugar exporter."}
+    ],
+    "Coffee": [
+        {"Country": "Brazil", "Tag": "Arabica", "Note": "The 'Saudi Arabia' of coffee."},
+        {"Country": "Vietnam", "Tag": "Robusta", "Note": "Dominates instant coffee market."},
+        {"Country": "Colombia", "Tag": "Washed", "Note": "High quality mild Arabica."},
+        {"Country": "Indonesia", "Tag": "Variety", "Note": "Sumatra/Java profiles."}
+    ],
+    "Cocoa": [
+        {"Country": "Ivory Coast", "Tag": "The Giant", "Note": "Produces ~40% of world cocoa."},
+        {"Country": "Ghana", "Tag": "Quality", "Note": "Govt controlled board (Cocobod)."},
+        {"Country": "Ecuador", "Tag": "Fine Flavor", "Note": "Leader in Arriba/Nacional beans."},
+        {"Country": "Indonesia", "Tag": "Processing", "Note": "Grinding hub for Asia."}
+    ],
+    "Cotton": [
+        {"Country": "USA", "Tag": "Quality", "Note": "Standard for machine spinning."},
+        {"Country": "India", "Tag": "Volume", "Note": "Massive acreage, variable yields."},
+        {"Country": "Brazil", "Tag": "Mechanized", "Note": "High quality rain-fed cotton."},
+        {"Country": "China", "Tag": "Consumer", "Note": "Huge production, but huge consumption."}
+    ],
+    # --- FOREX ---
+    "Forex": [
+        {"Country": "London", "Tag": "Hub", "Note": "43% of daily global Forex turnover."},
+        {"Country": "New York", "Tag": "USD Home", "Note": "Primary liquidity for USD pairs."},
+        {"Country": "Singapore", "Tag": "Asia", "Note": "Key hub for Asian session trading."},
+        {"Country": "Tokyo", "Tag": "JPY", "Note": "Major flows during Asian morning."}
     ]
-    # (Fallback logic handles missing items)
 }
 
 MACRO_VITALS = { "Brent Crude": "BZ=F", "Natural Gas": "NG=F", "Dollar Index": "DX=F", "Volatility": "^VIX" }
@@ -84,10 +160,8 @@ st.sidebar.markdown("## ⚙️ CONTROLS")
 timeframe = st.sidebar.selectbox("RANGE", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "ytd"], index=3)
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("## 📊 CHART SETTINGS")
-chart_style = st.sidebar.radio("CHART TYPE", ["Line", "Candle"], index=0, horizontal=True)
-show_ma = st.sidebar.checkbox("Show Moving Avg", value=True)
-ma_period = st.sidebar.slider("MA Period", 10, 200, 50, 10)
+st.sidebar.markdown("## 📊 CHART TYPE")
+chart_style = st.sidebar.radio("STYLE", ["Line", "Candle"], index=0, horizontal=True)
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("## 🌐 MACRO")
@@ -109,7 +183,7 @@ st.markdown("<h3 style='color: white;'>GLOBAL TRADE TERMINAL</h3>", unsafe_allow
 all_asset_tickers = [t for cat in ASSETS.values() for t in cat.values()]
 market_data = get_batch_data(all_asset_tickers, timeframe)
 
-# --- LAYOUT: Controls (Top), Chart (Left), Sourcing (Right) ---
+# --- LAYOUT ---
 col_main, col_source = st.columns([3, 1])
 
 with col_main:
@@ -122,32 +196,26 @@ with col_main:
     # Chart Logic
     df_chart = market_data[sel_ticker] if isinstance(market_data.columns, pd.MultiIndex) else market_data
     
+    # 1. CLEAN THE DATA (Fixes 'Wonky' Charts)
     if not df_chart.empty and 'Close' in df_chart:
+        df_clean = df_chart.dropna(subset=['Close']) # Drop empty days (holidays/weekends)
+        
         fig = go.Figure()
 
-        # 1. Main Price Trace
         if chart_style == "Candle":
             fig.add_trace(go.Candlestick(
-                x=df_chart.index, open=df_chart['Open'], high=df_chart['High'],
-                low=df_chart['Low'], close=df_chart['Close'], name=sel_asset,
+                x=df_clean.index, open=df_clean['Open'], high=df_clean['High'],
+                low=df_clean['Low'], close=df_clean['Close'], name=sel_asset,
                 increasing_line_color='#00C853', decreasing_line_color='#FF3D00'
             ))
         else:
             fig.add_trace(go.Scatter(
-                x=df_chart.index, y=df_chart['Close'], mode='lines', name=sel_asset,
+                x=df_clean.index, y=df_clean['Close'], mode='lines', name=sel_asset,
                 line=dict(color='#00E5FF', width=1.5)
             ))
             fig.add_trace(go.Scatter(
-                x=df_chart.index, y=df_chart['Close'], fill='tozeroy', 
+                x=df_clean.index, y=df_clean['Close'], fill='tozeroy', 
                 fillcolor='rgba(0, 229, 255, 0.05)', line=dict(width=0), showlegend=False
-            ))
-
-        # 2. Moving Average
-        if show_ma and len(df_chart) > ma_period:
-            df_chart[f'SMA{ma_period}'] = df_chart['Close'].rolling(window=ma_period).mean()
-            fig.add_trace(go.Scatter(
-                x=df_chart.index, y=df_chart[f'SMA{ma_period}'], 
-                name=f"MA ({ma_period})", line=dict(color='#FFAB40', width=1)
             ))
 
         fig.update_layout(
@@ -160,8 +228,8 @@ with col_main:
         )
         st.plotly_chart(fig, use_container_width=True)
         
-        # Current Price Display
-        cur_price = df_chart['Close'].iloc[-1]
+        # Current Price
+        cur_price = df_clean['Close'].iloc[-1]
         st.markdown(f"<h2 style='text-align: right; color: #00E5FF;'>${cur_price:,.2f}</h2>", unsafe_allow_html=True)
     else:
         st.error("Data Unavailable")
@@ -169,8 +237,12 @@ with col_main:
 with col_source:
     st.markdown("#### 📦 SOURCING INTEL")
     
-    # Check if we have specific sourcing data, else generic
+    # Intelligent Database Lookup
     source_list = SOURCING_DB.get(sel_asset)
+    
+    # Fallback for Forex or missing items
+    if not source_list and sel_cat == "Forex":
+        source_list = SOURCING_DB["Forex"]
     
     if source_list:
         st.markdown(f"<div style='font-size: 12px; color: #8b949e; margin-bottom: 10px;'>Top strategic hubs for {sel_asset}</div>", unsafe_allow_html=True)
@@ -182,16 +254,9 @@ with col_source:
             </div>
             """, unsafe_allow_html=True)
     else:
-        # Fallback for assets without specific notes
-        st.info(f"Sourcing intelligence not yet indexed for {sel_asset}.")
-        st.markdown(f"""
-        <div class="sourcing-card">
-            <div class="sourcing-header">Global Spot Market</div>
-            <div style="font-size: 12px; color: #c9d1d9;">Most liquid sourcing is via major exchanges (LME, COMEX, CBOT).</div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.info("Sourcing data updating...")
 
-# --- MARKET SCANNER (Bottom) ---
+# --- MARKET SCANNER ---
 st.markdown("---")
 st.markdown("#### MARKET SCANNER")
 
