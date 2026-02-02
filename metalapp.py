@@ -13,7 +13,6 @@ st.markdown("""
     div[data-testid="stMetricValue"] { font-family: 'Roboto Mono', monospace; font-size: 20px; color: #E6EDF3; }
     div[data-testid="stMetricLabel"] { font-size: 12px; color: #8B949E; letter-spacing: 1px; }
     section[data-testid="stSidebar"] { background-color: #12151a; border-right: 1px solid #25282e; }
-    #MainMenu {visibility: hidden;} footer {visibility: hidden;} header {visibility: hidden;}
     
     /* Sourcing Card Style */
     .sourcing-card {
@@ -27,6 +26,10 @@ st.markdown("""
     .sourcing-row { display: flex; justify-content: space-between; font-size: 13px; color: #c9d1d9; border-bottom: 1px solid #21262d; padding: 6px 0; }
     .sourcing-row:last-child { border-bottom: none; }
     .sourcing-tag { background-color: #238636; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; }
+    
+    /* HIDE ONLY THE MENU, KEEP THE HEADER VISIBLE (So the sidebar arrow stays) */
+    #MainMenu {visibility: hidden;} 
+    footer {visibility: hidden;} 
     </style>
     """, unsafe_allow_html=True)
 
